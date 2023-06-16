@@ -4,7 +4,7 @@
   "description": "Build first project",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server.js"
   },
   "author": "Faryaz Hajimuradov",
   "license": "ISC",
