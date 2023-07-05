@@ -8,7 +8,6 @@ exports.aliasTopTours = (req, res, next) => {
   req.query.fields = 'name,price,ratingsAverage,summary,difficulty';
   next();
 };
-
 exports.getAllTours = asyncUtil(async (req, res) => {
   const features = new APIFeatures(Tour.find(), req.query)
     .filter()
@@ -25,7 +24,6 @@ exports.getAllTours = asyncUtil(async (req, res) => {
     },
   });
 });
-
 exports.getTour = asyncUtil(async (req, res) => {
   const tour = await Tour.findById(req.params.id);
 
@@ -34,7 +32,6 @@ exports.getTour = asyncUtil(async (req, res) => {
     data: { tour },
   });
 });
-
 exports.createTour = asyncUtil(async (req, res) => {
   const newTour = await Tour.create(req.body);
 
@@ -45,7 +42,6 @@ exports.createTour = asyncUtil(async (req, res) => {
     },
   });
 });
-
 exports.updateTour = asyncUtil(async (req, res) => {
   const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
@@ -90,7 +86,6 @@ exports.getTourStats = asyncUtil(async (req, res) => {
     data: { stats },
   });
 });
-
 exports.getMonthlyPlan = asyncUtil(async (req, res) => {
   const year = req.params.year * 1;
 
