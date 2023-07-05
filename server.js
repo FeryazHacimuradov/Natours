@@ -13,6 +13,14 @@ mongoose.connect(DB).then(() => {
   console.log('DB connections successful!');
 });
 
+app.use((err, req, res, next) => {
+  res.status(404).json({
+    status: 'fail',
+    message: err,
+  });
+  next();
+});
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`App running on port ${port}...`);
