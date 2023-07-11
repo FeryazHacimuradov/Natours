@@ -35,7 +35,6 @@ exports.getTour = catchAsync(async (req, res, next) => {
   const tour = await Tour.findById(req.params.id);
 
   // return 404 if tour not found
-  // console.log(!tour);
   if (!tour) {
     return next(new AppError('No tour found with that ID', 404));
   }
@@ -45,7 +44,6 @@ exports.getTour = catchAsync(async (req, res, next) => {
     data: { tour },
   });
 });
-
 exports.createTour = catchAsync(async (req, res, next) => {
   const newTour = await Tour.create(req.body);
 
