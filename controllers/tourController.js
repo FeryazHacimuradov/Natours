@@ -26,22 +26,18 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
   });
 });
 exports.getTour = catchAsync(async (req, res, next) => {
-  // validate user input: tour req.params.id
-  if (!req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
-    return next(new AppError('Choose a normal id', 404));
-  }
-
-  // get the tour
   const tour = await Tour.findById(req.params.id);
+  // Tour.findOne({ _id: req.params.id })
 
-  // return 404 if tour not found
   if (!tour) {
     return next(new AppError('No tour found with that ID', 404));
   }
 
   res.status(200).json({
     status: 'success',
-    data: { tour },
+    data: {
+      tour,
+    },
   });
 });
 exports.createTour = catchAsync(async (req, res, next) => {
