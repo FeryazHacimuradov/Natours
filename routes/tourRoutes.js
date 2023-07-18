@@ -11,6 +11,8 @@ const {
   getMonthlyPlan,
 } = require('./../controllers/tourController');
 
+const reviewRouter = require('./../routes/reviewRoutes');
+
 const router = express.Router();
 
 // router.param('id', checkId);
@@ -27,5 +29,7 @@ router
   .get(getTour)
   .patch(updateTour)
   .delete(protect, restrictTo('admin', 'lead-guide'), deleteTour);
+
+router.use('/:tourId/reviews', reviewRouter);
 
 module.exports = router;
