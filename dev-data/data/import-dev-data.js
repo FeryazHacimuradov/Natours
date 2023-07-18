@@ -14,28 +14,38 @@ mongoose.connect(DB).then(() => {
   console.log('DB connections successful!');
 });
 
-const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/tours-simple.json`, 'utf-8')
-);
+const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`, 'utf-8'));
 
 const importData = async () => {
-  try {
-    await Tour.create(tours);
-    console.log('Data successfully loaded!');
-  } catch (err) {
-    console.log(err);
+  let retries = 3;
+  while (retries > 0) {
+    try {
+      await Tour.create(tours);
+      console.log('Data successfully loaded!');
+      process.exit();
+    } catch (err) {
+      console.log('Import failed. Retrying...');
+      retries--;
+    }
   }
-  process.exit();
+  console.log('Max retries reached. Failed to import data.');
+  process.exit(1);
 };
 
 const deleteData = async () => {
-  try {
-    await Tour.deleteMany();
-    console.log('Data successfully deleted!');
-  } catch (err) {
-    console.log(err);
+  let retries = 3;
+  while (retries > 0) {
+    try {
+      await Tour.deleteMany();
+      console.log('Data successfully deleted!');
+      process.exit();
+    } catch (err) {
+      console.log('Deletion failed. Retrying...');
+      retries--;
+    }
   }
-  process.exit();
+  console.log('Max retries reached. Failed to delete data.');
+  process.exit(1);
 };
 
 if (process.argv[2] === '--import') {
