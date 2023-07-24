@@ -28,7 +28,13 @@ exports.getTour = catchAsync(async (req, res, next) => {
 });
 
 exports.getLoginForm = (req, res, next) => {
-  res.status(200).render('login', {
-    title: 'Log into your account',
-  });
+  res
+    .status(200)
+    .set(
+      'Content-Security-Policy',
+      "script-src https://cdnjs.cloudflare.com https://api.mapbox.com 'self' blob: ;"
+    )
+    .render('login', {
+      title: 'Log into your account',
+    });
 };
