@@ -35,12 +35,14 @@ module.exports = class Email {
       }
     );
 
+    const text = htmlToText.fromString(html);
+
     const mailOptions = {
       from: this.from,
       to: this.to,
       subject,
       html,
-      text: htmlToText.fromString(html),
+      text,
     };
 
     await this.newTransport().sendMail(mailOptions);
@@ -48,5 +50,12 @@ module.exports = class Email {
 
   async sendWelcome() {
     await this.send('welcome', 'Welcome to the Natours Family!');
+  }
+
+  async sendPasswordReset() {
+    await this.send(
+      'passwordReset',
+      'Your password reset token (valid for only 10 minutes)'
+    );
   }
 };
